@@ -98,6 +98,16 @@ def _set_training_args(parser):
                         dest='leaky_hmm_coefficient',
                         help='leaky hmm coefficient',
                         type=float)
+    
+    parser.add_argument('--train.job-info-file',
+                        dest='job_info_file',
+                        help='file to store job info',
+                        type=str)
+
+    parser.add_argument('--train.init-method',
+                        dest='init_method',
+                        help='init method',
+                        type=str)
 
     # PyTorch DistributedDataParallel (ddp) parameters
     parser.add_argument(
@@ -106,8 +116,11 @@ def _set_training_args(parser):
         help="true to use PyTorch's built-in DistributedDataParallel trainer",
         type=_str2bool)
 
-    # note that we use device id as local rank.
-
+    parser.add_argument('--train.local-rank',
+                        dest='local_rank',
+                        help='local rank',
+                        type=int)
+    
     parser.add_argument('--train.ddp.world-size',
                         dest='world_size',
                         help='world size in ddp',
@@ -203,6 +216,7 @@ def get_args():
                         help='GPU device id',
                         required=True,
                         type=int)
+
 
     parser.add_argument('--is-training',
                         dest='is_training',
